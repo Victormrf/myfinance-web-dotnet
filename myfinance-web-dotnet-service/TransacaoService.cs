@@ -1,5 +1,5 @@
 using myfinance_web_dotnet_domain.Entities;
-using myfinance_web_dotnet_service.Interfaces;
+using myfinance_web_dotnet_service.interfaces;
 using myfinance_web_dotnet_infra;
 using Microsoft.EntityFrameworkCore;
 
