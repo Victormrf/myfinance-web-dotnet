@@ -2,6 +2,10 @@ using myfinance_web_dotnet_domain.Entities;
 using myfinance_web_dotnet_infra;
 using myfinance_web_dotnet_service;
 using myfinance_web_dotnet_service.interfaces;
+using DotNetEnv;
+
+// Carregar variáveis de ambiente do arquivo .env
+DotNetEnv.Env.Load("../.env");
 
 var builder = WebApplication.CreateBuilder(args);
 

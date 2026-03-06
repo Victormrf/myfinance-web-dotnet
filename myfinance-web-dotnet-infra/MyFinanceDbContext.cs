@@ -12,6 +12,13 @@ public class MyFinanceDbContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseSqlServer(@"Server=localhost;Database=myfinance;Trusted_Connection=True;TrustServerCertificate=False;Encrypt=False");
+        var connectionString = Environment.GetEnvironmentVariable("DATABASE_CONNECTION_STRING");
+        
+        if (string.IsNullOrEmpty(connectionString))
+        {
+            throw new InvalidOperationException("A variável de ambiente 'DATABASE_CONNECTION_STRING' não foi configurada.");
+        }
+        
+        optionsBuilder.UseSqlServer(connectionString);
     }
 }
