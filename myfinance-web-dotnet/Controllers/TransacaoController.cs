@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace myfinance_web_dotnet.Controllers
 {
+    [Route("[controller]")]
     public class TransacaoController : Controller
     {
         private readonly ITransacaoService _transacaoService;
@@ -80,7 +81,7 @@ namespace myfinance_web_dotnet.Controllers
             var transacao = new Transacao()
             {
                 Id = model.Id,
-                Historico = model.Historico,
+                Historico = model.Historico ?? "",
                 Data = model.Data,
                 Valor = model.Valor,
                 PlanoContaId = model.PlanoContaId
@@ -96,7 +97,10 @@ namespace myfinance_web_dotnet.Controllers
     [Route("Excluir/{Id}")]
     public IActionResult Excluir(int? Id)
     {
-        _transacaoService.Excluir((int)Id);
+        if (Id.HasValue)
+        {
+            _transacaoService.Excluir(Id.Value);
+        }
         return RedirectToAction("Index");
     }
 

@@ -6,6 +6,7 @@ using myfinance_web_dotnet_domain.Entities;
 
 namespace myfinance_web_dotnet.Controllers
 {
+    [Route("[controller]")]
     public class PlanoContaController : Controller
     {
         private readonly IPlanoContaService _planoContaService;
@@ -69,8 +70,8 @@ namespace myfinance_web_dotnet.Controllers
             var planoConta = new PlanoConta()
             {
                 Id = model.Id,
-                Descricao = model.Descricao,
-                Tipo = model.Tipo
+                Descricao = model.Descricao ?? "",
+                Tipo = model.Tipo ?? ""
             };
 
             _planoContaService.Cadastrar(planoConta);
@@ -83,7 +84,10 @@ namespace myfinance_web_dotnet.Controllers
     [Route("Excluir/{Id}")]
     public IActionResult Excluir(int? Id)
     {
-        _planoContaService.Excluir((int)Id);
+        if (Id.HasValue)
+        {
+            _planoContaService.Excluir(Id.Value);
+        }
         return RedirectToAction("Index");
     }
 
